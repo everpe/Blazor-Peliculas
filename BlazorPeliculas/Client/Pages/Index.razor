@@ -1,0 +1,53 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+
+<PageTitle>Counter</PageTitle>
+<button @onclick="@(() => Console.WriteLine("Me han clickeado"))">  Presioname </button>
+<button @onclick="@ManejarClick">  Presioname </button>
+
+<div>
+    <ListaPeliculas Peliculas="ObtenerPeliculas()" />
+    <div>
+        Crear Pelicula 
+        <EjemploTextBox placeholder ="Ejemploo" />
+    </div>
+</div>
+
+
+
+
+
+
+@code {
+
+    string name = "Blazor App";
+
+    protected override async Task OnInitializedAsync()
+    {
+        //await Task.Delay(3000);
+        Peliculas = ObtenerPeliculas(); ;
+    }
+    public Pelicula Peli1 { get { return ObtenerPelicula(); } }
+
+    public List<Pelicula> Peliculas;
+
+
+    private Pelicula ObtenerPelicula() => new Pelicula { Titulo = "Mi Pelicula", Lanzamiento = DateTime.UtcNow };
+    private List<Pelicula> ObtenerPeliculas()
+    {
+        return new List<Pelicula>()
+        {
+            new Pelicula { Titulo = "<b>Mi Pelicula1</b>", Lanzamiento = DateTime.UtcNow },
+            new Pelicula { Titulo = "<i>Mi Pelicula2</i>", Lanzamiento = DateTime.UtcNow },
+            new Pelicula { Titulo = "Mi Pelicula3", Lanzamiento = DateTime.UtcNow }
+        };
+    }
+
+
+    private void ManejarClick()
+    {
+        Console.WriteLine("Click 2");
+    }
+}

@@ -1,0 +1,46 @@
+﻿<PageTitle>Lista Peliculas</PageTitle>
+
+<div>
+    <h2>Peliculas</h2>
+    @if (Peliculas == null)
+    {
+        <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+        <text>Cargando...</text>
+    }
+    else if (Peliculas.Count == 0)
+    {
+        <text>No hay peliculas registradas</text>
+    }
+    else
+    {
+        @foreach (var Peli in Peliculas)
+        {
+            <PeliculaDetalle Pelicula="Peli"/>
+        }
+    }
+</div>
+
+
+
+
+
+@code {
+
+    [Parameter] public List<Pelicula> Peliculas { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //await Task.Delay(3000);
+        //Peliculas = ObtenerPeliculas(); ;
+    }
+
+    //private List<Pelicula> ObtenerPeliculas()
+    //{
+    //    return new List<Pelicula>()
+    //    {
+    //        new Pelicula { Titulo = "<b>Mi Pelicula1</b>", Lanzamiento = DateTime.UtcNow },
+    //        new Pelicula { Titulo = "<i>Mi Pelicula2</i>", Lanzamiento = DateTime.UtcNow },
+    //        new Pelicula { Titulo = "Mi Pelicula3", Lanzamiento = DateTime.UtcNow }
+    //    };
+    //}
+}

@@ -1,0 +1,8 @@
+﻿<h6>PeliculaDetalle</h6>
+<div>
+    <p>Titulo   <b>@(Pelicula.Titulo)</b> </p>
+    <p>Fecha <b>@(Pelicula.Lanzamiento)</b> </p>
+</div>
+@code {
+    [Parameter] public Pelicula Pelicula { get; set; }
+}
