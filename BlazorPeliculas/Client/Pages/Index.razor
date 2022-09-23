@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>@Name</PageTitle>
 
 
 <PageTitle>Counter</PageTitle>
@@ -8,7 +8,7 @@
 <button @onclick="@ManejarClick">  Presioname </button>
 
 <div>
-    <ListaPeliculas Peliculas="ObtenerPeliculas()" />
+    <ListaPeliculas Peliculas="ObtenerPeliculas()"/>
     <div>
         Crear Pelicula 
         <EjemploTextBox placeholder ="Ejemploo" />
@@ -22,7 +22,7 @@
 
 @code {
 
-    string name = "Blazor App";
+    string Name = "Blazor App";
 
     protected override async Task OnInitializedAsync()
     {
@@ -37,6 +37,7 @@
     private Pelicula ObtenerPelicula() => new Pelicula { Titulo = "Mi Pelicula", Lanzamiento = DateTime.UtcNow };
     private List<Pelicula> ObtenerPeliculas()
     {
+        //return new List<Pelicula>();
         return new List<Pelicula>()
         {
             new Pelicula { Titulo = "<b>Mi Pelicula1</b>", Lanzamiento = DateTime.UtcNow },
