@@ -1,4 +1,10 @@
 ﻿@page "/"
+@using static BlazorPeliculas.Client.Servicios
+@inject ServicioSingleton singleton
+@inject IRepositorio repositorio
+
+
+
 
 <PageTitle>@Name</PageTitle>
 
@@ -13,6 +19,7 @@
         @*<EjemploTextBox placeholder ="Ejemploo" />*@
         <button @onclick="AgregarPelicula">Agregar Pelicula</button>
     </div>
+    <p>Singleton: @singleton.Valor</p>
 </div>
 
 
@@ -24,29 +31,15 @@
 
     string Name = "Blazor App";
 
+    public Pelicula Peli1 { get { return ObtenerPelicula(); } }
+    public List<Pelicula> Peliculas;
+    private Pelicula ObtenerPelicula() => new Pelicula { Titulo = "Mi Pelicula", Lanzamiento = DateTime.UtcNow };
+
     protected override void OnInitialized()
     {
-        //await Task.Delay(3000);
-        Peliculas = ObtenerPeliculas();
+        Peliculas = repositorio.ObtenerPeliculas();
     }
-    public Pelicula Peli1 { get { return ObtenerPelicula(); } }
-
-    public List<Pelicula> Peliculas;
-
-
-    private Pelicula ObtenerPelicula() => new Pelicula { Titulo = "Mi Pelicula", Lanzamiento = DateTime.UtcNow };
     
-    private List<Pelicula> ObtenerPeliculas()
-    {
-        return new List<Pelicula>()
-        {
-            new Pelicula { Titulo = "<b>Mi Pelicula1</b>", Lanzamiento = DateTime.UtcNow },
-            new Pelicula { Titulo = "<i>Mi Pelicula2</i>", Lanzamiento = DateTime.UtcNow },
-            new Pelicula { Titulo = "Mi Pelicula3", Lanzamiento = DateTime.UtcNow }
-        };
-    }
-
-
     private void ManejarClick()
     {
         Console.WriteLine("Click 2");

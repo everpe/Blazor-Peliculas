@@ -5,16 +5,11 @@
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
+<p>Transient: @transient.Valor</p>
+<p>Singleton: @singleton.Valor</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-<ListaPeliculas />
 
 @code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
 }
