@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using static BlazorPeliculas.Client.Shared.MainLayout
 @using static BlazorPeliculas.Client.Servicios
 @inject ServicioSingleton singleton
 @inject IRepositorio repositorio
@@ -13,13 +14,13 @@
 <button @onclick="@(() => Console.WriteLine("Me han clickeado"))">  Presioname </button>
 
 <div>
-    <ListaPeliculas Peliculas="Peliculas"/>
+    <ListaPeliculas @ref="PeliculasComponent" Peliculas="Peliculas"/>
     <div>
         Crear Pelicula
         @*<EjemploTextBox placeholder ="Ejemploo" />*@
         <button @onclick="AgregarPelicula">Agregar Pelicula</button>
     </div>
-    <p>Singleton: @singleton.Valor</p>
+    <p style="color: @appState.Color">Singleton: @singleton.Valor</p>
 </div>
 
 
@@ -34,6 +35,10 @@
     public Pelicula Peli1 { get { return ObtenerPelicula(); } }
     public List<Pelicula> Peliculas;
     private Pelicula ObtenerPelicula() => new Pelicula { Titulo = "Mi Pelicula", Lanzamiento = DateTime.UtcNow };
+
+
+    private ListaPeliculas PeliculasComponent;
+    [CascadingParameter] private AppState appState { get; set; }
 
     protected override void OnInitialized()
     {

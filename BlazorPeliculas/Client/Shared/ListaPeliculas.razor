@@ -1,6 +1,8 @@
-﻿<PageTitle>Lista Peliculas</PageTitle>
+﻿@inject IJSRuntime js
 
-        @*<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
+<PageTitle>Lista Peliculas</PageTitle>
+
+@*<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" />
         <text>Cargando...</text>*@
 
 <div>
@@ -9,11 +11,15 @@
     <ListadoGenerico Listado="Peliculas">
         <HayRegistros Context="peli">
             <PeliculaDetalle Pelicula="peli" MostrarBotones="MostrarBotones"
-             EliminarPelicula="Eliminar"/>
+                             EliminarPelicula="Eliminar" />
         </HayRegistros>
     </ListadoGenerico>
 </div>
 
+<ConfirmacionModal @ref="confirmacion" onConfirm="onConfirmationModal"
+                   onCancel="onCancelModal">
+    <div>¿Desea borrar la película?</div>
+</ConfirmacionModal>
 
 
 
@@ -24,6 +30,11 @@
     [Parameter] public RenderFragment Cargando { get; set; }
     [Parameter] public RenderFragment NoHayRegistros { get; set; }
     bool MostrarBotones = true;
+    ConfirmacionModal confirmacion;
+
+    Pelicula peliculaABorrar;
+
+
 
     protected override void OnInitialized()
     {
@@ -43,16 +54,30 @@
         return true;
     }
 
-
-
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    //await Task.Delay(3000);
-    //    //Peliculas = ObtenerPeliculas(); ;
-    //}
-    void Eliminar(Pelicula pelicula)
+    public async Task Eliminar(Pelicula pelicula)
     {
-        Peliculas.Remove(pelicula);
-        Console.WriteLine($"Eliminar pelicula : {pelicula.Titulo}");
+        //var confirm = await js.Confirm($"Desea borrar la pelicula + {pelicula.Titulo}");
+        //if (confirm)
+        //{
+        //    Peliculas.Remove(pelicula);
+        //    Console.WriteLine($"Eliminar pelicula : {pelicula.Titulo}");
+        //}
+        confirmacion.Mostrar();
+        peliculaABorrar = pelicula;
     }
+
+
+    void onConfirmationModal()
+    {
+        Peliculas.Remove(peliculaABorrar);
+        confirmacion.Ocultar();
+        peliculaABorrar = null;
+    }
+
+    void onCancelModal()
+    {
+        confirmacion.Ocultar();
+        peliculaABorrar = null;
+    }
+
 }

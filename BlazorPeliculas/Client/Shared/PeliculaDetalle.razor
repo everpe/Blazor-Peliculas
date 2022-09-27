@@ -13,7 +13,8 @@
     [Parameter] public Pelicula Pelicula { get; set; }
     [Parameter] public bool MostrarBotones { get; set; } = false;
     [Parameter] public EventCallback<Pelicula> EliminarPelicula { get; set; }//Recibe este evento del Padre.
-    void Eliminar(){
-        Console.WriteLine( "Eliminar" );
+    void Eliminar()
+    {
+        Console.WriteLine("Eliminar");
     }
 }
