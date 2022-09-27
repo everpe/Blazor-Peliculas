@@ -1,20 +1,21 @@
-﻿<h6>PeliculaDetalle</h6>
-<div>
-    <p>Titulo <b>@(Pelicula.Titulo)</b> </p>
-    <p>Fecha <b>@(Pelicula.Lanzamiento)</b> </p>
-</div>
-@if (MostrarBotones)
-{
+﻿<div style="margin-right: 2%; margin-bottom: 10px; text-align: center;">
+    <a>
+        <img src="@Pelicula.Poster" alt="Poster" style="width: 225px; height:300px;" />
+    </a>
+    <p style="max-width: 225px; height: 44px; font-size: 15px; font-weight: bold;"><a>@Pelicula.TituloCortado</a></p>
     <div>
-        <button @onclick="@(() => EliminarPelicula.InvokeAsync(Pelicula))">Borrar</button>
+        <a class="btn btn-info">Editar</a>
+        <button type="button" class="btn btn-danger"
+                @onclick="@(() => EliminarPelicula.InvokeAsync(Pelicula))">
+            Borrar
+        </button>
     </div>
-}
+</div>
+
+
+
 @code {
     [Parameter] public Pelicula Pelicula { get; set; }
     [Parameter] public bool MostrarBotones { get; set; } = false;
     [Parameter] public EventCallback<Pelicula> EliminarPelicula { get; set; }//Recibe este evento del Padre.
-    void Eliminar()
-    {
-        Console.WriteLine("Eliminar");
-    }
 }
