@@ -1,0 +1,20 @@
+﻿
+<EditForm OnValidSubmit="OnValidSubmit" Model="Genero">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Nombre:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="@Genero.Nombre" />
+            <ValidationMessage For="@(() => Genero.Nombre)" />
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">Guardar</button>
+</EditForm>
+
+
+
+@*Formulario Reutilizado para Editar y Crear.*@
+@code {
+    [Parameter] public Genero Genero { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }//Acción de Crear o Editar
+}

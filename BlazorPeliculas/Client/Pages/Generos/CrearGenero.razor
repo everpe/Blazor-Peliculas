@@ -2,6 +2,18 @@
 
 <h3>CrearGenero</h3>
 
-@code {
 
+<FormGenero OnValidSubmit="Crear" Genero="Genero" />
+
+
+
+
+@code {
+    private Genero Genero = new Genero();
+
+    private void Crear()
+    {
+        Console.WriteLine("Ejecutando método Crear");
+        Console.WriteLine($"Nombre del género: {Genero.Nombre}");
+    }
 }

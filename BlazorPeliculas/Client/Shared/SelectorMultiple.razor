@@ -1,0 +1,61 @@
+﻿<div class="selector-multiple">
+    <ul class="selectable-ul">
+        @foreach (var item in NoSeleccionados)
+        {
+            <li @onclick="@(() => Seleccionar(item))">@item.Valor</li>
+        }
+    </ul>
+    <div class="selector-multiple-botones">
+        <button type="button" @onclick="SeleccionarTodo">>></button>
+        <button type="button" @onclick="DeseleccionarTodo">@removerTodoTexto</button>
+    </div>
+    <ul class="selectable-ul">
+        @foreach (var item in Seleccionados)
+        {
+            <li @onclick="@(() => Deseleccionar(item))">@item.Valor</li>
+        }
+    </ul>
+</div>
+
+
+
+
+
+@code {
+
+    private string removerTodoTexto = "<<";
+
+    //Representan Lista Clave-Valor de la entidad Relacionada a visualizar. 
+    [Parameter]
+    public List<SelectorMultipleHelper>
+        NoSeleccionados { get; set; } = new List<SelectorMultipleHelper>();
+    [Parameter]
+    public List<SelectorMultipleHelper>
+        Seleccionados { get; set; } = new List<SelectorMultipleHelper>();
+
+
+    
+    private void Seleccionar(SelectorMultipleHelper item)
+    {
+        NoSeleccionados.Remove(item);
+        Seleccionados.Add(item);
+    }
+
+    private void Deseleccionar(SelectorMultipleHelper item)
+    {
+        Seleccionados.Remove(item);
+        NoSeleccionados.Add(item);
+    }
+
+    private void SeleccionarTodo()
+    {
+        Seleccionados.AddRange(NoSeleccionados);
+        NoSeleccionados.Clear();
+    }
+
+    private void DeseleccionarTodo()
+    {
+        NoSeleccionados.AddRange(Seleccionados);
+        Seleccionados.Clear();
+    }
+}
